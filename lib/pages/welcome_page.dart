@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-import 'package:movie_night/pages/enter_code_page.dart';
-import 'package:movie_night/pages/share_code_page.dart';
+// import 'package:movie_night/pages/enter_code_page.dart';
+// import 'package:movie_night/pages/share_code_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -90,6 +90,8 @@ class WelcomePageState extends State<WelcomePage> {
                 )),
               ),
             ),
+            // const SizedBox(height: 20),
+            // if (_deviceId != null) Text('Device ID: $_deviceId'),
           ],
         ),
       ),
