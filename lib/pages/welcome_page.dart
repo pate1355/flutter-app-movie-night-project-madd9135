@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/shared/shared_preferences_helper.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-// import 'package:movie_night/pages/enter_code_page.dart';
-// import 'package:movie_night/pages/share_code_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -11,23 +10,17 @@ class WelcomePage extends StatefulWidget {
 }
 
 class WelcomePageState extends State<WelcomePage> {
-  String? _deviceId;
+  Future<void> deviceId() async {
+    String? deviceId = await PlatformDeviceId.getDeviceId;
+    if (deviceId!.isNotEmpty) {
+      await SharedPreferencesHelper.saveDeviceId(deviceId);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _loadDeviceId();
-  }
-
-  Future<void> _loadDeviceId() async {
-    try {
-      String? deviceId = await PlatformDeviceId.getDeviceId;
-      setState(() {
-        _deviceId = deviceId;
-      });
-    } catch (e) {
-      // Handle error if needed
-    }
+    deviceId();
   }
 
   @override
@@ -35,6 +28,7 @@ class WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie Night'),
+        // backgroundColor: Colors.redAccent[100],
         backgroundColor: Colors.redAccent[100],
       ),
       body: Center(
@@ -90,8 +84,6 @@ class WelcomePageState extends State<WelcomePage> {
                 )),
               ),
             ),
-            // const SizedBox(height: 20),
-            // if (_deviceId != null) Text('Device ID: $_deviceId'),
           ],
         ),
       ),
